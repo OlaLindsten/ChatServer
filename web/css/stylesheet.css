@@ -1,0 +1,41 @@
+body{
+
+}
+.container .jumbotron h1{
+    font-size: 40px;
+    text-align: center;
+    padding-top: -10px;
+}
+.container .jumbotron #messageTextArea{
+    width: 100%;
+    resize: none;
+    font-family: arial bold;
+    font-size: 20px;
+}
+.container .jumbotron #usersTextArea{
+    width: 100%;
+    resize: none;
+    color:blue;
+    font-family: arial bold;
+    font-size: 20px;
+}
+.container .jumbotron #messageInput{
+    width: 50%;
+}
+input[type=text]:focus{
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+input[type=text]{
+    font-size: 18px;
+}
+input[type=button]{
+    width: 5em;  
+    height: 2.3em;
+}
+input[type=button]:hover{
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
