@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nu.te4.websocket;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -19,10 +13,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-/**
- *
- * @author Lobo
- */
 @ServerEndpoint("/chatserver")
 public class ChatserverEndPoint {
 
@@ -41,9 +31,9 @@ public class ChatserverEndPoint {
             Session user = users.next();
             user.getBasicRemote().sendText(buildJsonUsers());
             user.getBasicRemote().sendText(
-                    buildJsonData("System", 
+                    buildJsonData("System",
                             (String) session.getUserProperties()
-                                    .get("username") + " have left the chatroom."));
+                            .get("username") + " have left the chatroom."));
         }
     }
 
@@ -55,22 +45,26 @@ public class ChatserverEndPoint {
         if (username == null) { //användarnamn saknas
             //använd första medelandet som användarnamn
             userSession.getUserProperties().put("username", message);
-            String returnMessage = buildJsonData("System", "you are now connected as: " + message);
+            String returnMessage = buildJsonData("System", " you are now connected as:  " + message);
             userSession.getBasicRemote().sendText(returnMessage); //skickas tillbaka till användaren
             Iterator<Session> users = sessions.iterator();
             while (users.hasNext()) { //skicka till alla sessioner
                 users.next().getBasicRemote().sendText(buildJsonUsers());
             }
-        } else { //användaren har ett användarnamn
+        }
+        
+        else { //användaren har ett användarnamn
             Iterator<Session> iterator = sessions.iterator();
             while (iterator.hasNext()) {
                 iterator.next().getBasicRemote().sendText(buildJsonData(username, message));
             }
         }
-
     }
 
     private String buildJsonData(String username, String message) {
+        
+        
+        
         //skapar json {"username":username, "message":message} //fast som text
         JsonObject object = Json.createObjectBuilder().add("username", username).add("message", message).build();
         return object.toString();
@@ -86,7 +80,7 @@ public class ChatserverEndPoint {
                         .add("username", (String) users.next().getUserProperties().get("username"))
                         .build());
             } catch (Exception e) {
-                System.out.println("Error "+e.getMessage());
+                System.out.println("Error " + e.getMessage());
             }
         }
         return jsonArrayBuilder.build().toString();
